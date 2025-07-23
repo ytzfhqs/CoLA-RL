@@ -1,0 +1,40 @@
+# model
+model_name_or_path: model/Qwen3-0.6B
+
+# method
+stage: sft
+do_train: true
+finetuning_type: full
+
+# dataset
+dataset: cola_train
+eval_dataset: cola_test
+template: qwen3
+cutoff_len: 512
+
+overwrite_cache: true
+preprocessing_num_workers: 8
+
+# output
+output_dir: Qwen3-0.6B-cola
+save_strategy: steps
+logging_strategy: steps
+logging_steps: 0.01
+save_steps: 0.1
+plot_loss: true
+report_to: tensorboard
+overwrite_output_dir: true
+
+# train
+per_device_train_batch_size: 16
+gradient_accumulation_steps: 8
+learning_rate: 1.0e-5
+warmup_ratio: 0.01
+num_train_epochs: 2
+lr_scheduler_type: cosine
+bf16: true
+
+# eval
+per_device_eval_batch_size: 16
+eval_strategy: steps
+eval_steps: 0.1

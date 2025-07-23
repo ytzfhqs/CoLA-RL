@@ -18,6 +18,8 @@
 
 ## 更新日志
 
+[25/07/23]修复数据准备错误，新增`SFT`数据准备代码和训练脚本（基于`LLaMA-Factory`框架），新增`REMAX`、`DAPO`训练脚本，新增`Text Classification`代码，新增`DeepSeek R1 0528`蒸馏`COLA`数据集。
+
 [25/06/22]完成数据处理流程、模型`GRPO`训练脚本（基于`verl`框架）和[文档编写](docs)
 
 ## 主要结果
@@ -40,6 +42,7 @@ Your answer:
 |    Qwen3-0.6B    |  zero-shot   | 0.223  |      待测试      |
 | DeepSeek V3 0324 |  zero-shot   | 0.726  |      待测试      |
 | DeepSeek R1 0120 |  zero-shot   | 0.636  |      待测试      |
+| DeepSeek R1 0528 |  zero-shot   | 0.658  |      待测试      |
 
 ## 如何使用
 

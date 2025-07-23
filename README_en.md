@@ -18,6 +18,8 @@ This repository focuses on leveraging the `Qwen3` series models to perform sente
 
 ## Changelog
 
+[25/07/23] Fixed data preparation errors, added `SFT` data preparation code and training scripts (based on the `LLaMA-Factory` framework), added `REMAX` and `DAPO` training scripts, added `Text Classification` code, and added `DeepSeek R1 0528` distilled `COLA` dataset.
+
 [25/06/22] Completed the data processing pipeline, `GRPO` training script (based on the `verl` framework), and [documentation](docs).
 
 ## Main Results

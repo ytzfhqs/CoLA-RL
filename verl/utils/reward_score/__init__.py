@@ -88,7 +88,7 @@ def default_compute_score(data_source, solution_str, ground_truth, extra_info=No
         res = agnews.compute_score(solution_str, ground_truth)
     elif data_source in ["cola"]:
         from . import cola
-        res = cola.compute_score(solution_str, ground_truth)
+        res = cola.compute_score(solution_str, ground_truth, 'grpo')
     else:
         raise NotImplementedError(f"Reward function is not implemented for {data_source=}")
 

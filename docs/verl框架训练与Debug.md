@@ -187,45 +187,19 @@ Your answer:
 }
 ```
 
-- `data_source`是数据标识符，这个字段和奖励函数的调用挂钩，这里我将其命名为`cola`。`prompt`是对话，但是需要注意的是`content`中的内容是应用过`chat`模板的。`reward_model`中的`ground_truth`是答案标签：
-
-```python
-tokenizer = AutoTokenizer.from_pretrained('Qwen3-0.6B')
-# content应用chat模板
-tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True, enable_thinking=True)
-```
+- `data_source`是数据标识符，这个字段和奖励函数的调用挂钩，这里我将其命名为`cola`。`prompt`是对话，但是需要注意的是`content`中的内容是提示词。`reward_model`中的`ground_truth`是答案标签。
 
 - 因为训练的是`think`模型，所以`enable_thinking`需要打开。单个样本示例：
 
 ```
 {'data_source': 'cola',
- 'prompt': [{'content': '<|im_start|>user\nDecide whether the following sentence is grammatically acceptable or not. If it is grammatically correct, answer "acceptable". If not, answer "unacceptable". Only output "acceptable" or "unacceptable", and do not output any other information.\n\nSentence: Our friends won\'t buy this analysis, let alone the next one we propose.\n\nYour answer:<|im_end|>\n<|im_start|>assistant\n',
+ 'prompt': [{'content': 'Decide whether the following sentence is grammatically acceptable or not. If it is grammatically correct, answer "acceptable". If not, answer "unacceptable". Only output "acceptable" or "unacceptable", and do not output any other information.\n\nSentence: Our friends won\'t buy this analysis, let alone the next one we propose.\n\nYour answer:',
    'role': 'user'}],
  'reward_model': {'ground_truth': 'acceptable'}}
 ```
 
 - 最后将训练集和测试集保存成`parquet`格式就行了。
-- 因为`Qwen3`已经内置了`think`格式，如果你要训练的是一个`Instruction`模型，以`Qwen2.5-0.5B-Instruct`为例，你需要在提示词里面加入，==请将你的推理过程括在<think></think>标记中，即<think>推理过程</think>== 。并且在应用对话模板的时候强制加入`<think>`引导推理生成。示例代码：
-
-```python
-tokenizer = AutoTokenizer.from_pretrained('Qwen2.5-0.5B-Instruct')
-# 先应用chat模板
-text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-
-{
-    'data_source': 'cola', 
-    'prompt': [
-        {
-            # 加入<think>标识符
-            'content': text + "<think>",
-            'role': 'user'
-        }
-    ], 
-    'reward_model': {
-        'ground_truth': 'acceptable'
-    }
-}
-```
+- 因为`Qwen3`已经内置了`think`格式，如果你要训练的是一个`Instruction`模型，以`Qwen2.5-0.5B-Instruct`为例，你需要在提示词里面加入，==请将你的推理过程括在<think></think>标记中，即<think>推理过程</think>== 。
 
 - 项目文件夹树状结构：
 
