@@ -8,6 +8,7 @@
 
 - [项目简介](#项目简介)
 - [更新日志](#更新日志)
+- [测评指标](#测评指标)
 - [主要结果](#主要结果)
 - [如何使用](#如何使用)
 - [待办事项](#待办事项)
@@ -18,31 +19,50 @@
 
 ## 更新日志
 
+[25/09/08]整理主要结果，上传wandb模型训练记录。
+
 [25/07/23]修复数据准备错误，新增`SFT`数据准备代码和训练脚本（基于`LLaMA-Factory`框架），新增`REMAX`、`DAPO`训练脚本，新增`Text Classification`代码，新增`DeepSeek R1 0528`蒸馏`COLA`数据集。
 
 [25/06/22]完成数据处理流程、模型`GRPO`训练脚本（基于`verl`框架）和[文档编写](docs)
 
-## 主要结果
+## 测评指标
 
 - 对比指标[Matthews相关系数](https://en.wikipedia.org/wiki/Phi_coefficient)（MCC）
 - 提示词：
 
-```python
-prompt = """
+```
 Decide whether the following sentence is grammatically acceptable or not. If it is grammatically correct, answer "acceptable". If not, answer "unacceptable". Only output "acceptable" or "unacceptable", and do not output any other information.
 
 Sentence: {sentence}
 
 Your answer:
-"""
 ```
 
-|      Model       | Shot Setting | 验证集 | 测试集（kaggle） |
-| :--------------: | :----------: | :----: | :--------------: |
-|    Qwen3-0.6B    |  zero-shot   | 0.223  |      待测试      |
-| DeepSeek V3 0324 |  zero-shot   | 0.726  |      待测试      |
-| DeepSeek R1 0120 |  zero-shot   | 0.636  |      待测试      |
-| DeepSeek R1 0528 |  zero-shot   | 0.658  |      待测试      |
+## 主要结果
+
+![](docs/figs/wandb_show.png)
+
+|         Model          | Fine-tuning method |  验证集   | 测试集（kaggle） |
+| :--------------------: | :----------------: | :-------: | :--------------: |
+|       Qwen3-0.6B       |         -          |   0.223   |      待测试      |
+|    DeepSeek V3 0324    |         -          | **0.726** |      待测试      |
+|    DeepSeek R1 0120    |         -          |   0.636   |      待测试      |
+|    DeepSeek R1 0528    |         -          |   0.658   |      待测试      |
+|    Qwen3-1.7B-Remax    |     Remax (RL)     |   0.658   |      待测试      |
+|    Qwen3-1.7B-GRPO     |     GRPO (RL)      |   0.669   |      待测试      |
+| Qwen3-1.7B-SFT-E1-GRPO |  SFT + GRPO (RL)   | **0.695** |      待测试      |
+|       Bert-base        |        CLS         |   0.548   |      待测试      |
+|     Qwen3-0.6B-CLS     |        CLS         |   0.610   |      待测试      |
+|     Qwen3-1.7B-SFT     |        SFT         |   0.657   |      待测试      |
+|     Qwen3-0.6B-SFT     |        SFT         |   0.598   |      待测试      |
+
+> [!Note]
+>
+> `SFT-E1-GRPO`后缀表示模型先进行1个`Epoch`的`SFT`后再进行`GRPO`。
+>
+> `CLS`后缀表示模型输出头变为分类头。
+
+- 各模型训练记录[wandb log](https://wandb.ai/work-hao/CoLA?nw=nwuserytzfhqs)
 
 ## 如何使用
 
