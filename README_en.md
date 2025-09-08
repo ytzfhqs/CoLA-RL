@@ -52,7 +52,7 @@ Your answer:
 |    DeepSeek R1 0528    |         -          |   0.658   |       TBA        |
 |    Qwen3-1.7B-Remax    |     Remax (RL)     |   0.658   |       TBA        |
 |    Qwen3-1.7B-GRPO     |     GRPO (RL)      |   0.669   |       TBA        |
-| Qwen3-1.7B-SFT-E1-GRPO |  SFT + GRPO (RL)   | **0.695** |       TBA        |
+| Qwen3-1.7B-SFT-E1-GRPO |  SFT + GRPO (RL)   | **0.702** |       TBA        |
 |       Bert-base        |        CLS         |   0.548   |       TBA        |
 |     Qwen3-0.6B-CLS     |        CLS         |   0.610   |       TBA        |
 |     Qwen3-1.7B-SFT     |        SFT         |   0.657   |       TBA        |
